@@ -1,11 +1,17 @@
-function rotate(chr, chrCodeStart) {
-  var rotateAmount = 13;
-  var alphabetLen = 26;
-  chr -= chrCodeStart;
-  chr += rotateAmount;
-  chr %= alphabetLen;
-  chr += chrCodeStart;
-  return chr;
+//ROT13
+function rotate(chr, chrStart) {
+  var ROTATE_AMOUNT = 13;
+  var ALPHABET_LEN = 26;
+ 
+  chrStart = chrStart.charCodeAt(0);
+  chr = chr.charCodeAt(0);
+  
+  chr -= chrStart;
+  chr += ROTATE_AMOUNT;
+  chr %= ALPHABET_LEN;
+  chr += chrStart;
+  
+  return String.fromCharCode(chr);
 }
 
 function rot13(str) {
@@ -13,21 +19,19 @@ function rot13(str) {
   var chr;
   var len = str.length;
   var rotated = '';
-  var upperCaseStart = 65;
-  var upperCaseEnd = 90;
-  var lowerCaseStart = 97;
-  var lowerCaseEnd = 122;
+  var upperStart = 'A';
+  var lowerStart = 'a';
 
   for (i = 0; i < len; i++) {
-    chr = str.charCodeAt(i);
-
-    if (chr >= upperCaseStart && chr <= upperCaseEnd) {
-      chr = rotate(chr, upperCaseStart);
-    } else if (chr >= lowerCaseStart && chr <= lowerCaseEnd) {
-      chr = rotate(chr, lowerCaseStart);
+    chr = str[i];
+    
+    if (chr >= 'A' && chr <= 'Z') {
+      chr = rotate(chr, upperStart);
+    } else if (chr >= 'a' && chr <= 'z') {
+      chr = rotate(chr, lowerStart);
     }
 
-    rotated += String.fromCharCode(chr);
+    rotated += chr;
   }
 
   return rotated;
